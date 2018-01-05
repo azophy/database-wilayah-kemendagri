@@ -2,7 +2,7 @@ Indonesian Ministry of Internal Affairs Region Code and Region Name Database
 ===================
 Fork of https://github.com/edwin/database-wilayah-kemendagri.
 
-Sebagai seorang developer freelance, gue beberapa kali harus berurusan dengan data lokasi yang dimiliki klien-klien saya. Kalau sudah berurusan dengan masalah lokasi, seringkali kita juga harus menyimpan data-data detail terkait misalnya provinsi dan/atau kabupaten lokasi yang dimaksud. Untuk memudahkan menyimpan keterangan provinsi dan/atau sampai dengan kelurahan tersebut kita seringkali membutuhkan suatu aturan kode. Salah satu caranya untuk di Amerika Serikat orang seringkali menyingkat kode negara bagian mereka dengan 2 huruf, misal 'TX' untuk Texas dan 'CA' untuk California.
+Sebagai seorang developer freelance, saya beberapa kali harus berurusan dengan data lokasi yang dimiliki klien-klien saya. Kalau sudah berurusan dengan masalah lokasi, seringkali kita juga harus menyimpan data-data detail terkait misalnya provinsi dan/atau kabupaten lokasi yang dimaksud. Untuk memudahkan menyimpan keterangan provinsi dan/atau sampai dengan kelurahan tersebut kita seringkali membutuhkan suatu aturan kode. Salah satu caranya untuk di Amerika Serikat orang seringkali menyingkat kode negara bagian mereka dengan 2 huruf, misal 'TX' untuk Texas dan 'CA' untuk California.
 
 Sebenarnya tidak ada aturan yang baku untuk pembuatan kode ini. Hampir setiap programmer memiliki preferensi masing-masing. Sah-sah saja kalau seorang programmer mau membuat aturan pengkodean sendiri kalau memang itu dirasa nyaman dan memudahkan. Kita bisa saja menggunakan aturan singkatan seperti negara bagian AS tadi, atau memanfaatkan kode nomor telepon misalnya, atau bisa juga memanfaatkan kode pos.
 
@@ -29,8 +29,32 @@ AGPL . Sedikit penjelasan dari situs AGPL:
 
 > The GNU Affero General Public License is a modified version of the ordinary GNU GPL version 3. It has one added requirement: if you run a modified program on a server and let other users communicate with it there, your server must also allow them to download the source code corresponding to the modified version running there.
 
-Examples
+Examples: Menggenerate sendiri file2 json
 ----------
+Pertama-tama pastikan dahulu semua program yang dibutuhkan sudah di-install. Program-program yang harus disiapkan:
+- MySql
+- Python 2.7
+- module python-pymsql
+- Git
+
+Silahkan googling dahulu cara menginstall program-program tersebut jika belum ada.
+
+Selanjutnya clone dahulu repository ini kemudian import file sql nya. Kode dibawah mengasumsikan kita memiliki database mysql dengan user: root, password: root, dan kita sudah membuat database dengan nama 'wilayah_indonesia'. 
+
+```bash
+git clone git@github.com:azophy/database-wilayah-kemendagri.git
+mysql -u root -p wilayah_indonesia < tbl_regions.sql
+```
+Setelah import selesai (yang saya membutuhkan waktu yang luar biasa lama, di https://dba.stackexchange.com/q/17367 ada trik-trik untuk memantau progres import kita kalau dirasa terlalu lama), kita cek dahulu variabel-variabel di file `generator.py` yang perlu disesuaikan. Yang paling penting jelas adalah variabel-variabel yang berkaitan dengan koneksi database (host, username, password, nama database). Variabel-variabel yang lain harusnya tidak perlu diubah.
+
+Setelah di periksa dan tidak ada masalah, masuk ke folder database-wilayah-kemendagri dan jalankan generator.py
+
+```sh
+cd database-wilayah-kemendagri
+python generator.py
+```
+
+Setelah selesai maka file-file json di folder 'results' akan berisi file-file hasil generate terbaru.
 
 Revisions
 -------------------
