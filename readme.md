@@ -69,6 +69,8 @@ Example: Meload data2 di atas menggunakan JQuery
                 content.forEach(function(v,i) {
                     $('#provinsi').append('<option value="' + v[0] + '">' + v[1] + '</option>' + "\n");
                 });
+                    
+                $('#provinsi').trigger('change');
             },
         });
     });
@@ -84,6 +86,8 @@ Example: Meload data2 di atas menggunakan JQuery
                 content.forEach(function(v,i) {
                     $('#kabupaten').append('<option value="' + v[0] + '">' + v[1] + '</option>' + "\n");
                 });
+                    
+                $('#kabupaten').trigger('change');
             },
         });
     });
