@@ -57,7 +57,7 @@ Contoh ini juga dapat dilihat di http://cdn.rawgit.com/azophy/database-wilayah-k
     </form>
 </body>
 <script>
-    var rootAreaCodeUrl = 'http://cdn.rawgit.com/azophy/database-wilayah-kemendagri/v0.2/results/';
+    var rootAreaCodeUrl = 'http://cdn.rawgit.com/azophy/database-wilayah-kemendagri/v0.3/results/';
 
     // load provinsi on page load
     $(document).ready(function() {
