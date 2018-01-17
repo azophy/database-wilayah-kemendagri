@@ -15,7 +15,7 @@ File-file JSON dari proyek ini bisa dipanggil dengan url:
 - kode kabupaten: rooturl + list_kabupaten_<kode_kabupaten>.json
 - kode kecamatan: rooturl + list_kabupaten_<kode_kecamatan>.json
 
-Proyek ini memanfaatkan layanan CDN dari rawgit.com, sehingga untuk aksesnya menggunakan rooturl 'https://rawgit.com/azophy/database-wilayah-kemendagri/master/results/'
+Proyek ini memanfaatkan layanan CDN dari rawgit.com, sehingga untuk aksesnya menggunakan rooturl 'https://cdn.rawgit.com/azophy/database-wilayah-kemendagri/<versi terakhir>/results/'. Versi terakhir yang dapat digunakan saat ini adalah versi `v0.2`.
 
 Proyek ini hanya menyajikan file json sampai level kecamatan saja. Untuk menampilkan sampai level kelurahan silahkan clone proyek ini, hilangkan commant dari blok kode terakhir di generator.py dan generate file2 json kelurahan
 
@@ -55,8 +55,9 @@ Example: Meload data2 di atas menggunakan JQuery
     </form>
 </body>
 <script>
-    var rootAreaCodeUrl = 'https://rawgit.com/azophy/database-wilayah-kemendagri/master/results/';
+    var rootAreaCodeUrl = 'http://cdn.rawgit.com/azophy/database-wilayah-kemendagri/v0.2/results/';
 
+    // load provinsi on page load
     $(document).ready(function() {
         // init provinsi dropdown
         $.ajax({
@@ -65,7 +66,6 @@ Example: Meload data2 di atas menggunakan JQuery
             type: 'get',
             cache: false,
             success: function(content){
-                //console.log(content);
                 content.forEach(function(v,i) {
                     $('#provinsi').append('<option value="' + v[0] + '">' + v[1] + '</option>' + "\n");
                 });
@@ -75,6 +75,7 @@ Example: Meload data2 di atas menggunakan JQuery
         });
     });
     
+    // load labupaten list
     $('#provinsi').on('change', function() {
         $.ajax({
             url: rootAreaCodeUrl + 'list_kabupaten_' +$('#provinsi').val() + '.json',
@@ -92,6 +93,7 @@ Example: Meload data2 di atas menggunakan JQuery
         });
     });
     
+    // load kecamatan list
     $('#kabupaten').on('change', function() {
         $.ajax({
             url: rootAreaCodeUrl + 'list_kecamatan_' +$('#kabupaten').val() + '.json',
