@@ -46,12 +46,19 @@ Contoh ini juga dapat dilihat di http://cdn.rawgit.com/azophy/database-wilayah-k
     <form action="#">
         <label for="provinsi">Provinsi</label>
         <select id="provinsi" name="provinsi"></select>
+        <br/>
 
         <label for="kabupaten">Kabupaten</label>
         <select id="kabupaten" name="kabupaten"></select>
+        <br/>
 
         <label for="kecamatan">Kecamatan</label>
         <select id="kecamatan" name="kecamatan"></select>
+        <br/>
+
+        <label>Kode Daerah : </label>
+        <span style="font-weight:bold" id="kode_daerah"></span>
+        <br/>
 
         <button type="submit">Search</button>
     </form>
@@ -107,10 +114,16 @@ Contoh ini juga dapat dilihat di http://cdn.rawgit.com/azophy/database-wilayah-k
                 content.forEach(function(v,i) {
                     $('#kecamatan').append('<option value="' + v[0] + '">' + v[1] + '</option>' + "\n");
                 });
+                    
+                $('#kecamatan').trigger('change');
             },
         });
     });
 
+    // load kecamatan list
+    $('#kecamatan').on('change', function() {
+        $('#kode_daerah').text($('#kecamatan').val());
+    });
 </script>
 </html>
 ```
