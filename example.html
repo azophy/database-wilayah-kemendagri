@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <form action="#">
+        <label for="provinsi">Provinsi</label>
+        <select id="provinsi" name="provinsi"></select>
+
+        <label for="kabupaten">Kabupaten</label>
+        <select id="kabupaten" name="kabupaten"></select>
+
+        <label for="kecamatan">Kecamatan</label>
+        <select id="kecamatan" name="kecamatan"></select>
+
+        <button type="submit">Search</button>
+    </form>
+</body>
+<script>
+    var rootAreaCodeUrl = 'http://cdn.rawgit.com/azophy/database-wilayah-kemendagri/v0.3/results/';
+
+    // load provinsi on page load
+    $(document).ready(function() {
+        // init provinsi dropdown
+        $.ajax({
+            url: rootAreaCodeUrl + 'list_provinsi.json',
+            dataType: 'json',
+            type: 'get',
+            cache: false,
+            success: function(content){
+                content.forEach(function(v,i) {
+                    $('#provinsi').append('<option value="' + v[0] + '">' + v[1] + '</option>' + "\n");
+                });
+                    
+                $('#provinsi').trigger('change');
+            },
+        });
+    });
+    
+    // load labupaten list
+    $('#provinsi').on('change', function() {
+        $.ajax({
+            url: rootAreaCodeUrl + 'list_kabupaten_' +$('#provinsi').val() + '.json',
+            dataType: 'json',
+            type: 'get',
+            cache: false,
+            success: function(content){
+                $('#kabupaten').html('');
+                content.forEach(function(v,i) {
+                    $('#kabupaten').append('<option value="' + v[0] + '">' + v[1] + '</option>' + "\n");
+                });
+                    
+                $('#kabupaten').trigger('change');
+            },
+        });
+    });
+    
+    // load kecamatan list
+    $('#kabupaten').on('change', function() {
+        $.ajax({
+            url: rootAreaCodeUrl + 'list_kecamatan_' +$('#kabupaten').val() + '.json',
+            dataType: 'json',
+            type: 'get',
+            cache: false,
+            success: function(content){
+                $('#kecamatan').html('');
+                content.forEach(function(v,i) {
+                    $('#kecamatan').append('<option value="' + v[0] + '">' + v[1] + '</option>' + "\n");
+                });
+            },
+        });
+    });
+
+</script>
+</html>

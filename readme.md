@@ -15,7 +15,7 @@ File-file JSON dari proyek ini bisa dipanggil dengan url:
 - kode kabupaten: rooturl + list_kabupaten_<kode_kabupaten>.json
 - kode kecamatan: rooturl + list_kabupaten_<kode_kecamatan>.json
 
-Proyek ini memanfaatkan layanan CDN dari rawgit.com, sehingga untuk aksesnya menggunakan rooturl 'https://cdn.rawgit.com/azophy/database-wilayah-kemendagri/<versi terakhir>/results/'. Versi terakhir yang dapat digunakan saat ini adalah versi `v0.2`.
+Proyek ini memanfaatkan layanan CDN dari rawgit.com, sehingga untuk aksesnya menggunakan rooturl 'https://cdn.rawgit.com/azophy/database-wilayah-kemendagri/<versi terakhir>/results/'. Versi terakhir yang dapat digunakan saat ini adalah versi `v0.3`.
 
 Proyek ini hanya menyajikan file json sampai level kecamatan saja. Untuk menampilkan sampai level kelurahan silahkan clone proyek ini, hilangkan commant dari blok kode terakhir di generator.py dan generate file2 json kelurahan
 
@@ -31,6 +31,8 @@ AGPL . Sedikit penjelasan dari situs AGPL:
 
 Example: Meload data2 di atas menggunakan JQuery
 ---------
+
+Contoh ini juga dapat dilihat di http://cdn.rawgit.com/azophy/database-wilayah-kemendagri/v0.3/example.html .
 
 ```html
 <!DOCTYPE html>
