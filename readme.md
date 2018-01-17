@@ -29,6 +29,84 @@ AGPL . Sedikit penjelasan dari situs AGPL:
 
 > The GNU Affero General Public License is a modified version of the ordinary GNU GPL version 3. It has one added requirement: if you run a modified program on a server and let other users communicate with it there, your server must also allow them to download the source code corresponding to the modified version running there.
 
+Example: Meload data2 di atas menggunakan JQuery
+---------
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <form action="#">
+        <label for="provinsi">Provinsi</label>
+        <select id="provinsi" name="provinsi"></select>
+
+        <label for="kabupaten">Kabupaten</label>
+        <select id="kabupaten" name="kabupaten"></select>
+
+        <label for="kecamatan">Kecamatan</label>
+        <select id="kecamatan" name="kecamatan"></select>
+
+        <button type="submit">Search</button>
+    </form>
+</body>
+<script>
+    var rootAreaCodeUrl = 'https://rawgit.com/azophy/database-wilayah-kemendagri/master/results/';
+
+    $(document).ready(function() {
+        // init provinsi dropdown
+        $.ajax({
+            url: rootAreaCodeUrl + 'list_provinsi.json',
+            dataType: 'json',
+            type: 'get',
+            cache: false,
+            success: function(content){
+                //console.log(content);
+                content.forEach(function(v,i) {
+                    $('#provinsi').append('<option value="' + v[0] + '">' + v[1] + '</option>' + "\n");
+                });
+            },
+        });
+    });
+    
+    $('#provinsi').on('change', function() {
+        $.ajax({
+            url: rootAreaCodeUrl + 'list_kabupaten_' +$('#provinsi').val() + '.json',
+            dataType: 'json',
+            type: 'get',
+            cache: false,
+            success: function(content){
+                $('#kabupaten').html('');
+                content.forEach(function(v,i) {
+                    $('#kabupaten').append('<option value="' + v[0] + '">' + v[1] + '</option>' + "\n");
+                });
+            },
+        });
+    });
+    
+    $('#kabupaten').on('change', function() {
+        $.ajax({
+            url: rootAreaCodeUrl + 'list_kecamatan_' +$('#kabupaten').val() + '.json',
+            dataType: 'json',
+            type: 'get',
+            cache: false,
+            success: function(content){
+                $('#kecamatan').html('');
+                content.forEach(function(v,i) {
+                    $('#kecamatan').append('<option value="' + v[0] + '">' + v[1] + '</option>' + "\n");
+                });
+            },
+        });
+    });
+
+</script>
+</html>
+```
+
 Examples: Menggenerate sendiri file2 json
 ----------
 Pertama-tama pastikan dahulu semua program yang dibutuhkan sudah di-install. Program-program yang harus disiapkan:
